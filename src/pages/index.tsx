@@ -105,7 +105,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Subtitle>{texts[selectedLang][Text.SUBTITLE]}...</Subtitle>
         <Contact>
           ({texts[selectedLang][Text.CONTACT]}{" "}
-          <a href="mailto:info@capyslice.com">info@capyslice.com</a>)
+          <a href="mailto:info@capyslice.com">contact@capyslice.com</a>)
         </Contact>
       </Wrapper>
     </Main>
