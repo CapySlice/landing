@@ -1,0 +1,17 @@
+{
+  "cat": {
+    "title": "Ho sentim!",
+    "subtitle": "A la teva pizza encara li quedan 5 minuts",
+    "contact": "Pero mentre esperes ens pots contactar a"
+  },
+  "esp": {
+    "title": "¡Lo sentimos!",
+    "subtitle": "A tu pizza aún le quedan 5 minutos...",
+    "contact": "Aunque mientras esperas puedes ponerte en contacto con nosotros en"
+  },
+  "eng": {
+    "title": "We're sorry!",
+    "subtitle": "But your pizza still needs 5 more minutes",
+    "contact": "Although while you wait you can get in touch with us through"
+  }
+}

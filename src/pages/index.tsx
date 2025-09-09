@@ -1,98 +1,112 @@
 import * as React from "react";
+import { useState } from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import styled from "styled-components";
 
-import { MouseAnimation } from "../components/mouse-animation/mouse-animation";
-import logo from "../images/logo.jpg";
-
+import cataloniaFlag from "../images/catalonia-flag.png";
+import espanaFlag from "../images/espana-flag.png";
+import englandFlag from "../images/england-flag.png";
 import "./reset.css";
+import texts from "../static/texts.json";
 
 const Main = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #e68700;
+  background: linear-gradient(180deg, #f7931e 0%, #f15a24 100%);
   display: flex;
   font-family: "Chewy", system-ui;
   color: #ededed;
 `;
 
 const Header = styled.header`
-  position: fixed;
-  width: 100vw;
-  background: #171717;
-`;
-const HeaderWrapper = styled.div`
-  width: 50vw;
-  margin: auto;
-  gap: 1.5rem;
   display: flex;
-  padding: 1rem 0;
+  flex-direction: row-reverse;
+  position: fixed;
+  width: 100%;
+  top: 0;
 `;
-
-const Logo = styled.img`
-  width: 6rem;
-  height: 6rem;
-  objectfit: cover;
+const LanguageFlag = styled.img`
+  height: 2rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 50%;
-`;
-const HeaderTitle = styled.div`
-  font-weight: 400;
-  font-style: normal;
-  font-size: 6rem;
+  cursor: pointer;
+  &:hover {
+    box-shadow: rgba(24, 27, 31, 0.3) 0px 0px 0px 2px;
+  }
 `;
 
 const Wrapper = styled.section`
-  margin: auto auto 0 auto;
-  display: flex;
-  height: 70vh;
-`;
-const SorryWrapper = styled.div`
-  text-align: center;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: 50vw;
-`;
-const LoadingIcon = styled.img``;
-const SorryTitle = styled.h3`
-  font-size: 5rem;
-  font-weight: 300;
-`;
-const SorrySubtitle = styled.h4`
-  font-size: 3rem;
-  font-weight: 200;
-  margin-bottom: 1rem;
-`;
-const SorryHook = styled.h5`
-  font-size: 1.5rem;
+  text-align: center;
+  gap: 2rem;
+  padding: 1rem;
 `;
 
-const AnimationWrapper = styled.div`
-  margin: 10rem auto 0 auto;
+const Title = styled.h1`
+  font-size: clamp(4rem, 25vw, 4rem);
+  font-weight: 300;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+`;
+
+const Subtitle = styled.h2`
+  font-size: clamp(2rem, 12vw, 3rem);
+  font-weight: 200;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+`;
+
+const Contact = styled.h3`
+  font-size: clamp(1.3rem, 5vw, 1.5rem);
+  font-weight: 100;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 `;
 
 const IndexPage: React.FC<PageProps> = () => {
+  enum Lang {
+    CAT = "cat",
+    ESP = "esp",
+    ENG = "eng",
+  }
+
+  enum Text {
+    TITLE = "title",
+    SUBTITLE = "subtitle",
+    CONTACT = "contact",
+  }
+  const [selectedLang, setSelectedLang] = useState(Lang.CAT);
+
   return (
     <Main>
       <Header>
-        <HeaderWrapper>
-          <Logo src={logo} />
-          <HeaderTitle>CapySlice</HeaderTitle>
-        </HeaderWrapper>
+        {selectedLang !== Lang.ENG && (
+          <LanguageFlag
+            src={englandFlag}
+            onClick={() => setSelectedLang(Lang.ENG)}
+          />
+        )}
+        {selectedLang !== Lang.ESP && (
+          <LanguageFlag
+            src={espanaFlag}
+            onClick={() => setSelectedLang(Lang.ESP)}
+          />
+        )}
+        {selectedLang !== Lang.CAT && (
+          <LanguageFlag
+            src={cataloniaFlag}
+            onClick={() => setSelectedLang(Lang.CAT)}
+          />
+        )}
       </Header>
       <Wrapper>
-        <SorryWrapper>
-          <LoadingIcon></LoadingIcon>
-          <SorryTitle>¡Lo sentimos!</SorryTitle>
-          <SorrySubtitle>A tu pizza aún le quedan 5 minutos...</SorrySubtitle>
-          <SorryHook>
-            (Aunque mientras esperas puedes ponerte en contacto con nosotros más
-            abajo)
-          </SorryHook>
-          <AnimationWrapper>
-            <MouseAnimation />
-          </AnimationWrapper>
-        </SorryWrapper>
+        <Title>{texts[selectedLang][Text.TITLE]}</Title>
+        <Subtitle>{texts[selectedLang][Text.SUBTITLE]}...</Subtitle>
+        <Contact>
+          ({texts[selectedLang][Text.CONTACT]}{" "}
+          <a href="mailto:info@capyslice.com">info@capyslice.com</a>)
+        </Contact>
       </Wrapper>
     </Main>
   );
