@@ -5,6 +5,7 @@ const config: GatsbyConfig = {
     title: `CapySlice`,
     siteUrl: `https://www.capyslice.com`,
   },
+  pathPrefix: "/landing",
   graphqlTypegen: true,
   plugins: [
     "gatsby-plugin-styled-components",
